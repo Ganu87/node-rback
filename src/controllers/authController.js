@@ -18,14 +18,16 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     try {
+        console.log("in login api");
         const { username, password } = req.body;
 
-        const user = await User.findOne(username);
+        const user = await User.findOne({username});
 
         if (!user) {
             res.status(404).json({ message: `user not found with username ${username}` });
         }
-        console.log("password ",password);
+        // console.log("password ",password);
+        // console.log("user.password ",user.password);
         const isMatch = await bcrypt.compare(password,user.password);
 
         if(!isMatch){
@@ -37,7 +39,7 @@ const login = async (req, res) => {
         res.status(200).json({token});
 
     } catch (err) {
-        res.status(500).json({ message: `opps something went wrong while login` });
+        res.status(500).json({ message: `opps something went wrong while login ${err}` });
     }
 };
 
