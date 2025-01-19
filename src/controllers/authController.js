@@ -18,7 +18,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        console.log("in login api");
+        //console.log("in login api");
         const { username, password } = req.body;
 
         const user = await User.findOne({username});
